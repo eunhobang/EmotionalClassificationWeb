@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DiaryMapper">
+
+	<insert id="addDiary" parameterType="diary">
+	INSERT INTO diary
+	(diary_questions, diary_answers, diary_contents, diary_labels, diary_image, diary_emotions, mem_id)
+	VALUES(#{diaryQuestions}, #{diaryAnswers}, #{diaryContents}, #{diaryLabels}, #{diaryImage}, #{diaryEmotions}, #{memId})
+	</insert>
+
+	<update id="updateDiary" parameterType="diary">
+	UPDATE diary
+	SET diary_answers=#{diaryAnswers}, diary_contents=#{diaryContents}
+	WHERE diary_id=#{diaryId}
+	</update>
+
+	<delete id="deleteDiary" parameterType="int">
+	DELETE FROM diary
+	WHERE diary_id=#{diaryId}
+	</delete>
+
+	<select id="getDiary" parameterType="int" resultType="diary">
+	SELECT diary_id, diary_questions, diary_answers, diary_contents, diary_labels, diary_image, diary_emotions, mem_id, diary_date
+	FROM diary
+	WHERE diary_id=#{diaryId}	
+	</select>
+	
+	<select id="getAllDiary" parameterType="String" resultType="diary">
+	SELECT diary_id, diary_answers, diary_labels , diary_date
+	FROM diary
+	WHERE mem_id=#{memId}
+	</select>
+	
+	<select id='countDiary' parameterType="String" resultType="int">
+	SELECT COUNT(diary_id)
+	FROM diary
+	WHERE mem_id=#{memId}
+	</select>
+	
+	<select id='countLabels' parameterType="String" resultType="diary">
+	SELECT diary_labels, diary_date
+	FROM diary
+	WHERE mem_id=#{memId}
+	</select>
+	
+</mapper>

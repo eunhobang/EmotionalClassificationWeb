@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CalendarMapper">
+
+	<insert id="addEvent" parameterType="calendar">
+		INSERT INTO calendar
+		(cal_event, cal_comment, cal_date, mem_id)
+		VALUES(#{calEvent}, #{calComment}, #{calDate}, #{memId})
+	</insert>
+
+	<update id="updateEvent" parameterType="calendar">
+		UPDATE calendar
+		SET cal_event=#{calEvent}, cal_comment=#{calComment}
+		WHERE cal_id=#{calId}
+	</update>
+
+	<delete id="deleteEvent" parameterType="int">
+		DELETE FROM calendar
+		WHERE cal_id=#{calId}
+	</delete>
+
+	<select id="getEvent" parameterType="int" resultType="calendar">
+		SELECT cal_id,  cal_event, cal_comment, cal_date, mem_id
+		FROM calendar
+		WHERE cal_id=#{calId}
+	</select>
+	
+	<select id="getAllEvent" parameterType="String" resultType="calendar">
+		SELECT cal_id,  cal_event, cal_comment, cal_date, mem_id
+		FROM calendar
+		WHERE mem_id=#{memId}
+	</select>
+	
+</mapper>

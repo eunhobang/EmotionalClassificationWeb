@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+
+	<insert id="addMember" parameterType="member">
+		INSERT INTO member
+		(mem_id, mem_pw, mem_name, mem_anniversary, mem_date)
+		VALUES (#{memId}, #{memPw}, #{memName}, #{memAnniversary}, #{memDate})
+	</insert>
+	
+	<select id="idCheck" parameterType="string" resultType="int">
+		SELECT COUNT(mem_id) FROM member WHERE mem_id=#{VALUE}
+	</select>
+	
+	<select id="login" parameterType="member" resultType="member">
+		SELECT mem_id, mem_name
+		FROM member
+		WHERE mem_id=#{memId} AND mem_pw=#{memPw}
+	</select>
+	
+	<select id="findID" parameterType="member" resultType="member">
+		SELECT mem_id, mem_pw, mem_name, mem_anniversary
+		FROM member
+		WHERE mem_name=#{memName} AND mem_anniversary=#{memAnniversary}
+	</select>
+	
+	<select id="findPW" parameterType="member" resultType="member">
+		SELECT mem_id, mem_pw, mem_name, mem_anniversary
+		FROM member
+		WHERE mem_name=#{memName} AND mem_anniversary=#{memAnniversary} AND mem_id=#{memId}
+	</select>
+	
+	<delete id="deleteMember" parameterType="string">
+		DELETE FROM member WHERE mem_id=#{VALUE}
+	</delete>
+	
+	<update id="changePW" parameterType="member">
+		UPDATE member
+		SET mem_pw=#{memPw}
+		WHERE mem_id=#{memId}
+	</update>
+	
+	
+	
+	
+	
+
+</mapper>
